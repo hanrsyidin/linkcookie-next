@@ -56,9 +56,9 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-[30px]">
             <NavLinkItem href="/">Home</NavLinkItem>
             <NavLinkItem href="/products">Pesan</NavLinkItem>
-            <NavLinkItem href="/voucher">Voucher</NavLinkItem>
-            <NavLinkItem href="/history">Pesanan</NavLinkItem>
-            <NavLinkItem href="/profile">Profile</NavLinkItem>
+            {/* <NavLinkItem href="/voucher">Voucher</NavLinkItem> */}
+            {/* <NavLinkItem href="/history">Pesanan</NavLinkItem> */}
+            {/* <NavLinkItem href="/profile">Profile</NavLinkItem> */}
           </div>
 
           <div className="hidden md:flex items-center gap-3">
@@ -96,9 +96,9 @@ export default function Navbar() {
             <div className="flex flex-col items-start gap-4">
               <Link href="/" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
               <Link href="/products" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesan</Link>
-              <Link href="/voucher" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Voucher</Link>
-              <Link href="/history" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesanan</Link>
-              <Link href="/profile" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link>
+              {/* <Link href="/voucher" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Voucher</Link> */}
+              {/* <Link href="/history" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesanan</Link> */}
+              {/* <Link href="/profile" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link> */}
               <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-200 w-full">
                 <span className="text-xl text-[#494d51] leading-none">♦</span>
                 <span className="text-sm text-[#494d51]">{clientFormattedDate}</span>

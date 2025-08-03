@@ -5,10 +5,14 @@ import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Product } from "../page";
 import Image from "next/image";
-import { useCart } from "@/contexts/cartContext"; 
+import { useCart } from "@/contexts/cartContext";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 
-export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = use(params);
+// export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+//     const { slug } = use(params);
+export default function ProductDetailPage() {
+    const { slug } = useParams();
 
     const [detailProduct, setDetailProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -89,17 +93,17 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                         <div className="mt-8">
                             <div className="flex items-center gap-2">
-                        <button 
-                          onClick={() => handleQuantityChange(detailProduct.id, -1)} 
-                          disabled={quantity === 0}
-                          className="w-12 h-12 rounded-md bg-zinc-200 text-lg font-bold disabled:opacity-50"
-                        >-</button>
-                        <span className="w-12 text-center font-bold text-xl">{quantity}</span>
-                        <button 
-                          onClick={() => handleQuantityChange(detailProduct.id, 1)} 
-                          className="w-12 h-12 rounded-md bg-zinc-800 text-white text-lg font-bold"
-                        >+</button>
-                      </div>
+                                <button 
+                                  onClick={() => handleQuantityChange(detailProduct.id, -1)} 
+                                  disabled={quantity === 0}
+                                  className="w-12 h-12 rounded-md bg-zinc-200 text-lg font-bold disabled:opacity-50"
+                                >-</button>
+                                <span className="w-12 text-center font-bold text-xl">{quantity}</span>
+                                <button 
+                                  onClick={() => handleQuantityChange(detailProduct.id, 1)} 
+                                  className="w-12 h-12 rounded-md bg-zinc-800 text-white text-lg font-bold"
+                                >+</button>
+                            </div>
                         </div>
                     </div>
 
@@ -108,9 +112,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             {totalItems > 0 && (
                 <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
                     <div className="container mx-auto">
-                         <button className="w-full bg-pink-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-600 transition-colors text-lg">
-                            Masukkan {totalItems} item ke Keranjang
-                        </button>
+                        <Link href="/cart" className="block">
+                            <button className="w-full bg-pink-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-600 transition-colors text-lg">
+                                Masukkan {totalItems} item ke Keranjang
+                            </button>
+                        </Link>
                     </div>
                 </div>
             )}
