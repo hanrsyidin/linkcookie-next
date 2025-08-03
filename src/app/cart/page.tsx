@@ -7,9 +7,10 @@ import { supabase } from "@/lib/supabase";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import ConfirmationModal from "./components/confirmationModal";
+import { FaTrash } from "react-icons/fa";
 
 export default function Cart() {
-    const {cart, handleQuantityChange, clearCart, totalItems} = useCart();
+    const {cart, handleQuantityChange, clearCart, totalItems, removeItemFromCart} = useCart();
     const [detailedCartItems, setDetailedCartItems] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -22,7 +23,7 @@ export default function Cart() {
             if (arrayIdProduct.length === 0) {
                 setLoading(false);
                 setDetailedCartItems([]);
-                return;
+                return redirect('/');
             }
              try{
                 const {data: products, error} = await supabase
@@ -88,18 +89,6 @@ export default function Cart() {
         )
     }
 
-    if (Object.keys(cart).length <= 0) {
-        redirect('/');
-
-        // return(
-        //     <section className="py-16 sm:py-24 mt-10 md:mt-16 bg-white">
-        //         <div className="container mx-auto px-4 sm:px-6 lg:px-8 items-center justify-center text-center">
-        //             <h1 className="text-xl font-bold text-zinc-900 sm:text-2xl">Anda belum memilih salah satu produk manapun!</h1>
-        //         </div>
-        //     </section>
-        // )
-    }
-
     return(
         <>
             <section className="bg-white py-16 sm:py-24 mt-10 md:mt-4">
@@ -115,6 +104,9 @@ export default function Cart() {
                                     <p className="text-zinz-600">Rp {item.price.toLocaleString('id-ID')}</p>
                                 </div>
                                 <div className="flex items-center gap-3">
+                                    <button onClick={() => removeItemFromCart(item.id)} aria-label={`Remove ${item.name}`}>
+                                        <FaTrash className="text-red-500 hover:text-red-700"/>
+                                    </button>
                                     <button onClick={() => handleQuantityChange(item.id, -1)} className="w-8 h-8 rounded-md bg-zinc-200 font-bold">-</button>
                                     <span>{cart[item.id]}</span>
                                     <button onClick={() => handleQuantityChange(item.id, 1)} className="w-8 h-8 rounded-md bg-zinc-800 text-white font-bold">+</button>

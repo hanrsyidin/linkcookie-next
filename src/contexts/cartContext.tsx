@@ -8,6 +8,7 @@ interface CartContextType {
   handleQuantityChange: (productId: number, amount: number) => void;
   totalItems: number;
   clearCart: () => void;
+  removeItemFromCart: (productId: number) => void;
 }
 
 // Buat Context
@@ -55,13 +56,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clearCart = () => {
     setCart({});
   }
+  
+  const removeItemFromCart = (productId: number) => {
+    setCart(prevCart => {
+      const newCart = { ...prevCart };
+      delete newCart[productId];
+      return newCart;
+    });
+  };
 
   // Data yang akan dibagikan
   const value = {
     cart,
     handleQuantityChange,
     totalItems,
-    clearCart
+    clearCart,
+    removeItemFromCart
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
