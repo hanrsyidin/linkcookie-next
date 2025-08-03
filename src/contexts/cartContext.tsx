@@ -7,6 +7,7 @@ interface CartContextType {
   cart: Record<number, number>;
   handleQuantityChange: (productId: number, amount: number) => void;
   totalItems: number;
+  clearCart: () => void;
 }
 
 // Buat Context
@@ -51,11 +52,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
   }, [cart]);
 
+  const clearCart = () => {
+    setCart({});
+  }
+
   // Data yang akan dibagikan
   const value = {
     cart,
     handleQuantityChange,
     totalItems,
+    clearCart
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
