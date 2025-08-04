@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Product } from "../page";

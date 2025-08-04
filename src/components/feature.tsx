@@ -35,21 +35,18 @@ export default function Features() {
   return (
     <section className="bg-white py-16 sm:py-24 relative overflow-hidden">
 
-       {/* Lingkaran blur dipindahkan ke sini, langsung di dalam section */}
        <div aria-hidden="true" className="hidden md:block absolute top-1/5 left-1/6 z-0 w-96 h-96 bg-pink-400/20 rounded-full blur-3xl -translate-x-1/2"></div>
        <div aria-hidden="true" className="hidden md:block absolute bottom-1/8 right-3/5 z-0 w-96 h-96 bg-pink-400/20 rounded-full blur-3xl translate-x-1/2"></div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 items-center">
           
-          {/* Kolom Kiri: Semua Teks & Gambar Khusus Mobile */}
           <div className="flex flex-col">
             <div className="text-left">
               <h2 className="text-xl md:text-2xl text-base font-semibold leading-7 text-pink-600">The Linkcookie Difference</h2>
               <p className="mt-2 text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl">
                 What Makes Our Cookies Special
               </p>
-              {/* GAMBAR UNTUK MOBILE (muncul di mobile, hilang di desktop) */}
             <div className="block md:hidden my-12 flex justify-center">
                 <div className="relative w-8/12 aspect-square">
                     <Image
@@ -82,7 +79,6 @@ export default function Features() {
             </div>
           </div>
 
-          {/* GAMBAR UNTUK DESKTOP (hilang di mobile, muncul di desktop) */}
           <div className="hidden md:flex items-center justify-end">
             <div className="relative w-9/12 aspect-square">
                 <Image

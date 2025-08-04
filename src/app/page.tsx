@@ -2,7 +2,6 @@ import BestSellers from "@/components/bestSeller";
 import Features from "@/components/feature";
 import Hero from "@/components/hero";
 import InstagramFeed from "@/components/instagramFeed";
-import Navbar from "@/components/navbar";
 import OurStory from "@/components/ourStory";
 import Testimonials from "@/components/testimonials";
 

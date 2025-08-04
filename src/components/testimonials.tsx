@@ -1,10 +1,7 @@
-// src/components/Testimonials.tsx
-"use client"; // 👈 1. WAJIB: Menjadikan ini Client Component
+"use client";
 
-import { useRef } from 'react'; // 👈 2. Impor useRef
-import Image from 'next/image';
+import { useRef } from 'react';
 
-// --- DATA DUMMY ---
 const testimonials = [
   {
     id: 1,
@@ -32,7 +29,6 @@ const testimonials = [
   },
 ];
 
-// Komponen untuk menampilkan bintang
 const StarRating = ({ rating }: { rating: number }) => {
     return (
       <div className="flex items-center">
@@ -44,27 +40,22 @@ const StarRating = ({ rating }: { rating: number }) => {
       </div>
     );
   };
-// --------------------
 
 export default function Testimonials() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // 👇 FUNGSI SCROLL DIPERBARUI DENGAN LOGIKA LOOPING 👇
   const handleScroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const { current: el } = scrollContainerRef;
       const scrollAmount = 300;
 
       if (direction === 'left') {
-        // Jika sudah di paling kiri, pindah ke paling kanan
         if (el.scrollLeft === 0) {
             el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
         } else {
             el.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         }
       } else {
-        // Jika sudah di paling kanan, pindah ke paling kiri
-        // Kita beri toleransi 1px untuk pembulatan
         if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 1) {
             el.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
@@ -87,7 +78,7 @@ export default function Testimonials() {
                     Ulasan tulus dari para pencinta Linkcookie.
                 </p>
             </div>
-            {/* 5. Tambahkan tombol panah di sini */}
+
            <div className="absolute top-1/2 -translate-y-1/2 -left-5 z-10 hidden md:block">
                 <button onClick={() => handleScroll('left')} aria-label="Scroll left" className="w-11 h-11 rounded-full bg-white/80 backdrop-blur-sm shadow-md flex items-center justify-center text-zinc-600 hover:bg-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
@@ -95,7 +86,6 @@ export default function Testimonials() {
             </div>
         </div>
 
-        {/* 6. Tambahkan ref ke wadah carousel */}
         <div ref={scrollContainerRef} className="flex overflow-x-auto space-x-8 pb-4 scrollbar-hide">
             {testimonials.map((testimonial) => (
                 <div key={testimonial.id} className="flex-shrink-0 w-80 sm:w-96 bg-white p-8 rounded-lg shadow-lg">

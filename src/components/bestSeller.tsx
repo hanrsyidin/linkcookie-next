@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from './sectionTitle';
 
-// --- DATA ---
 const bestSellerProducts = [
   {
     id: 1,
@@ -39,13 +38,10 @@ const keyIngredients = [
   { name: 'Organic Flour', imageSrc: '/AsetImage/ingredient_flour.png' },
   { name: 'Brown Sugar', imageSrc: '/AsetImage/ingredient_sugar.png' },
 ];
-// --------------------
 
 export default function BestSellers() {
-  // State untuk melacak indeks produk yang aktif
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Fungsi untuk menangani klik arrow
   const handlePrev = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? bestSellerProducts.length - 1 : currentIndex - 1;
@@ -58,7 +54,6 @@ export default function BestSellers() {
     setCurrentIndex(newIndex);
   };
 
-  // Ambil data produk yang sedang aktif
   const currentProduct = bestSellerProducts[currentIndex];
 
   return (
@@ -67,7 +62,6 @@ export default function BestSellers() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:mt-12">
         
         <div className="flex items-center gap-4">
-            {/* Tampilkan preTitle dari produk yang aktif */}
             <p className="text-xl sm:text-2xl font-semibold text-pink-500 uppercase flex-shrink-0">
               {currentProduct.preTitle}
             </p>
@@ -76,17 +70,15 @@ export default function BestSellers() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-start">
           <div className="flex flex-col justify-center mt-4 md:mt-8">
-            {/* Tampilkan data dari produk yang aktif */}
             <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">
               {currentProduct.title}
             </h2>
-            {/* Tampilkan gambar dari produk yang aktif untuk MOBILE*/}
             <div className="md:hidden flex justify-center md:justify-end items-center mt-4">
             <div className="relative w-9/12 aspect-square">
               <Image
                 src={currentProduct.imageSrc}
                 alt={currentProduct.title}
-                key={currentProduct.id} // Penting untuk transisi gambar
+                key={currentProduct.id}
                 fill
                 className="object-contain rounded-lg shadow-lg"
               />
@@ -104,7 +96,6 @@ export default function BestSellers() {
                   </svg>
                 </button>
               </Link>
-              {/* Tombol Arrow Carousel */}
               <div className="flex items-center gap-3">
                 <button onClick={handlePrev} aria-label="Previous slide" className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-zinc-600 hover:bg-zinc-100 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
@@ -115,13 +106,12 @@ export default function BestSellers() {
               </div>
             </div>
           </div>
-          {/* Tampilkan gambar dari produk yang aktif untuk DEKSTOP*/}
           <div className="hidden md:flex justify-center md:justify-end items-center">
             <div className="relative w-9/12 aspect-square">
               <Image
                 src={currentProduct.imageSrc}
                 alt={currentProduct.title}
-                key={currentProduct.id} // Penting untuk transisi gambar
+                key={currentProduct.id}
                 fill
                 className="object-contain rounded-lg shadow-lg"
               />
@@ -129,15 +119,10 @@ export default function BestSellers() {
           </div>
         </div>
 
-
-        {/* Bagian Bawah: Key Ingredients */}
         <div className="mt-4 sm:mt-8">
           <div className="flex items-center gap-4">
-            {/* Garis Kiri */}
             <div className="grow h-px bg-zinc-900"></div>
-            {/* Teks Judul */}
             <h3 className="text-2xl font-bold text-zinc-900 flex-shrink-0">Key Ingredients</h3>
-            {/* Garis Kanan */}
             <div className="grow h-px bg-zinc-900"></div>
           </div>
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-8">

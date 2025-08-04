@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from '@/app/products/page';
