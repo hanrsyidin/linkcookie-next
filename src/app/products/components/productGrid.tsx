@@ -64,18 +64,18 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
   return (
     <>
-      <div className="space-y-16">
+      <div className="space-y-16 mt-8 md:mt-0">
         {Object.keys(groupedProducts).map((category) => (
           <section key={category}>
             <h2 className="text-3xl font-bold tracking-tight text-zinc-900">{category}</h2>
             
-            <div className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-x-6 lg:gap-x-8">
+            <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-x-6 sm:gap-y-12">
               {groupedProducts[category].map((product) => {
                 const quantity = cart[product.id] || 0;
                 return (
                   <div key={product.id} className="group flex flex-col justify-between overflow-hidden rounded-lg border border-zinc-200 shadow-sm">
                     <Link href={`/products/${product.slug}`} className="block">
-                      <div className="relative w-full h-64 sm:h-72">
+                      <div className="relative w-full aspect-square overflow-hidden">
                         <Image
                           src={product.image_url}
                           alt={product.name}
@@ -83,26 +83,26 @@ export default function ProductGrid({ products }: ProductGridProps) {
                           className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity"
                         />
                       </div>
-                      <div className="p-4">
-                        <h3 className="text-lg font-semibold text-zinc-900">{product.name}</h3>
+                      <div className="p-1 md:p-4">
+                        <h3 className="text-base md:text-lg font-semibold text-zinc-900">{product.name}</h3>
                         <p className="mt-1 text-sm text-zinc-500 truncate">{product.caption}</p>
                       </div>
                     </Link>
                     
-                    <div className="p-4 pt-0 mt-auto flex justify-between items-center">
-                      <p className="text-md font-bold text-zinc-900">
+                    <div className="p-1 pb-4 md:p-4 pt-0 mt-auto flex justify-between items-center">
+                      <p className="text-sm md:text-xl font-bold text-zinc-900">
                         Rp {product.price.toLocaleString('id-ID')}
                       </p>
-                      <div className="flex items-center gap-2">
+                      <div className="flex gap-2">
                         <button 
                           onClick={() => handleQuantityChange(product.id, -1)} 
                           disabled={quantity === 0}
-                          className="w-8 h-8 rounded-md bg-zinc-200 text-lg font-bold disabled:opacity-50"
+                          className="w-6 h-6 md:w-8 md:h-8 rounded-md bg-zinc-200 text-md md:text-xl font-bold disabled:opacity-50"
                         >-</button>
-                        <span className="w-8 text-center font-bold">{quantity}</span>
+                        <span className="w-4 h-4 md:w-8 md:h-8 text-center text-md md:text-xl font-bold">{quantity}</span>
                         <button 
                           onClick={() => handleQuantityChange(product.id, 1)} 
-                          className="w-8 h-8 rounded-md bg-zinc-800 text-white text-lg font-bold"
+                          className="w-6 h-6 md:w-8 md:h-8 rounded-md bg-zinc-800 text-white text-md md:text-xl font-bold"
                         >+</button>
                       </div>
                     </div>
