@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import SectionTitle from './sectionTitle';
 
 const bestSellerProducts = [
@@ -60,63 +61,79 @@ export default function BestSellers() {
     <section id="best-sellers" className="bg-white py-16 sm:py-24">
       <SectionTitle />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:mt-12">
-        
+
         <div className="flex items-center gap-4">
-            <p className="text-xl sm:text-2xl font-semibold text-pink-500 uppercase flex-shrink-0">
-              {currentProduct.preTitle}
-            </p>
-            <div className="w-full h-[2px] bg-pink-200"></div>
+          <p className="text-xl sm:text-2xl font-semibold text-pink-500 uppercase flex-shrink-0">
+            {currentProduct.preTitle}
+          </p>
+          <div className="w-full h-[2px] bg-pink-200"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-start">
-          <div className="flex flex-col justify-center mt-4 md:mt-8">
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">
-              {currentProduct.title}
-            </h2>
-            <div className="md:hidden flex justify-center md:justify-end items-center mt-4">
-            <div className="relative w-9/12 aspect-square">
-              <Image
-                src={currentProduct.imageSrc}
-                alt={currentProduct.title}
-                key={currentProduct.id}
-                fill
-                className="object-contain rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-            <p className="text-zinc-600 text-base md:text-xl leading-relaxed text-justify mt-4">
-              {currentProduct.description}
-            </p>
-            <div className="flex items-center gap-4 mt-4 md:mt-8">
-              <Link href={`/products/${currentProduct.slug}`} className="no-underline">
-                <button className="bg-zinc-800 text-white font-bold py-3 px-6 rounded-md hover:bg-zinc-700 transition-colors duration-300 flex items-center gap-2">
-                  <span>Lihat Detail Produk</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </Link>
-              <div className="flex items-center gap-3">
-                <button onClick={handlePrev} aria-label="Previous slide" className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-zinc-600 hover:bg-zinc-100 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-                </button>
-                <button onClick={handleNext} aria-label="Next slide" className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-zinc-600 hover:bg-zinc-100 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-                </button>
+        <div className="relative min-h-[600px] md:min-h-[500px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentProduct.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-start"
+            >
+              <div className="flex flex-col justify-center mt-4 md:mt-8">
+                <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">
+                  {currentProduct.title}
+                </h2>
+                <div className="md:hidden flex justify-center md:justify-end items-center mt-4">
+                  <div className="relative w-9/12 aspect-square">
+                    <Image
+                      src={currentProduct.imageSrc}
+                      alt={currentProduct.title}
+                      fill
+                      className="object-contain rounded-lg shadow-lg"
+                    />
+                  </div>
+                </div>
+                <p className="text-zinc-600 text-base md:text-xl leading-relaxed text-justify mt-4">
+                  {currentProduct.description}
+                </p>
+                <div className="flex items-center gap-4 mt-4 md:mt-8">
+                  <Link href={`/products/${currentProduct.slug}`} className="no-underline">
+                    <button className="bg-zinc-800 text-white font-bold py-3 px-6 rounded-md hover:bg-zinc-700 transition-colors duration-300 flex items-center gap-2">
+                      <span>Lihat Detail Produk</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </Link>
+                  <div className="flex items-center gap-3">
+                    <button onClick={handlePrev} aria-label="Previous slide" className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-zinc-600 hover:bg-zinc-100 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+                    </button>
+                    <button onClick={handleNext} aria-label="Next slide" className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-zinc-600 hover:bg-zinc-100 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="hidden md:flex justify-center md:justify-end items-center">
-            <div className="relative w-9/12 aspect-square">
-              <Image
-                src={currentProduct.imageSrc}
-                alt={currentProduct.title}
-                key={currentProduct.id}
-                fill
-                className="object-contain rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
+              <div className="hidden md:flex justify-center md:justify-end items-center">
+                <div className="relative w-9/12 aspect-square">
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={currentProduct.imageSrc}
+                      alt={currentProduct.title}
+                      fill
+                      className="object-contain rounded-lg shadow-lg"
+                    />
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <div className="mt-4 sm:mt-8">
@@ -126,8 +143,15 @@ export default function BestSellers() {
             <div className="grow h-px bg-zinc-900"></div>
           </div>
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-8">
-            {keyIngredients.map((ingredient) => (
-              <div key={ingredient.name} className="flex flex-col items-center gap-4">
+            {keyIngredients.map((ingredient, index) => (
+              <motion.div
+                key={ingredient.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.5 }}
+                className="flex flex-col items-center gap-4"
+              >
                 <div className="relative w-28 h-28 rounded-full overflow-hidden shadow-md">
                   <Image
                     src={ingredient.imageSrc}
@@ -137,7 +161,7 @@ export default function BestSellers() {
                   />
                 </div>
                 <p className="font-semibold text-zinc-700">{ingredient.name}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

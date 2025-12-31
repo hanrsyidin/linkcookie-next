@@ -4,51 +4,52 @@ import { useMemo } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from '@/app/products/page';
-import { useCart } from '@/contexts/cartContext';
+// import { useCart } from '@/contexts/cartContext';
+import { useEffect, useState } from 'react';
 
 interface ProductGridProps {
   products: Product[];
 }
 
 export default function ProductGrid({ products }: ProductGridProps) {
-  // const [cart, setCart] = useState<Record<number, number>>({});
+  const [cart, setCart] = useState<Record<number, number>>({});
 
-  // useEffect(() => {
-  //   const savedCart = localStorage.getItem('linkcookie-cart');
-  //   if (savedCart) {
-  //     setCart(JSON.parse(savedCart));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const savedCart = localStorage.getItem('linkcookie-cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (Object.keys(cart).length > 0) {
-  //     localStorage.setItem('linkcookie-cart', JSON.stringify(cart));
-  //   } else {
-  //     localStorage.removeItem('linkcookie-cart');
-  //   }
-  // }, [cart]);
+  useEffect(() => {
+    if (Object.keys(cart).length > 0) {
+      localStorage.setItem('linkcookie-cart', JSON.stringify(cart));
+    } else {
+      localStorage.removeItem('linkcookie-cart');
+    }
+  }, [cart]);
 
-  // const handleQuantityChange = (productId: number, amount: number) => {
-  //   setCart(prevCart => {
-  //     const currentQuantity = prevCart[productId] || 0;
-  //     const newQuantity = Math.max(0, currentQuantity + amount);
-  //     const newCart = { ...prevCart };
+  const handleQuantityChange = (productId: number, amount: number) => {
+    setCart(prevCart => {
+      const currentQuantity = prevCart[productId] || 0;
+      const newQuantity = Math.max(0, currentQuantity + amount);
+      const newCart = { ...prevCart };
 
-  //     if (newQuantity === 0) {
-  //       delete newCart[productId];
-  //     } else {
-  //       newCart[productId] = newQuantity;
-  //     }
+      if (newQuantity === 0) {
+        delete newCart[productId];
+      } else {
+        newCart[productId] = newQuantity;
+      }
       
-  //     return newCart;
-  //   });
-  // };
+      return newCart;
+    });
+  };
 
-  // const totalItems = useMemo(() => {
-  //   return Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
-  // }, [cart]);
+  const totalItems = useMemo(() => {
+    return Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+  }, [cart]);
 
-  const { cart, handleQuantityChange, totalItems} = useCart();
+  // const { cart, handleQuantityChange, totalItems} = useCart();
 
   const groupedProducts = useMemo(() => {
     return products.reduce((acc, product) => {
@@ -65,7 +66,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
   return (
     <>
       <div className="space-y-16 mt-8 md:mt-0">
-        {Object.keys(groupedProducts).map((category) => (
+        {Object.keys(products).map((category) => (
           <section key={category}>
             <h2 className="text-3xl font-bold tracking-tight text-zinc-900">{category}</h2>
             

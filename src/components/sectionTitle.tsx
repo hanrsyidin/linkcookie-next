@@ -1,24 +1,23 @@
-// src/components/SectionTitle.tsx
+"use client";
+
+import { motion } from 'framer-motion';
 
 export default function SectionTitle() {
   const backgroundText = "Linkcookie ".repeat(20);
 
   return (
-    <>
-      {/* <style>
-        {`
-          @keyframes marquee {
-            from { transform: translateX(0%); }
-            to { transform: translateX(-50%); }
-          }
-          .animate-marquee {
-            animation: marquee 60s linear infinite;
-          }
-        `}
-      </style> */}
-      <div className="relative flex h-24 items-center justify-center overflow-hidden">
-        {/* Teks Latar Belakang (Watermark) */}
-        <div className="absolute top-0 left-0 animate-marquee whitespace-nowrap">
+    <div className="relative flex h-24 items-center justify-center overflow-hidden">
+      {/* Teks Latar Belakang (Watermark) */}
+      <div className="absolute top-0 left-0 whitespace-nowrap">
+        <motion.div
+          animate={{ x: [0, -1000] }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: 50
+          }}
+          className="whitespace-nowrap"
+        >
           <span
             className="mx-4 text-8xl font-black uppercase text-zinc-900"
             style={{
@@ -26,10 +25,10 @@ export default function SectionTitle() {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            {backgroundText}{backgroundText}
+            {backgroundText}
           </span>
-        </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
 }

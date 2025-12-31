@@ -1,5 +1,8 @@
+"use client";
+
 import Link from 'next/link';
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -22,15 +25,27 @@ export default function Footer() {
       <h2 id="footer-heading" className="sr-only">Footer</h2>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          <div className="space-y-4">
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-4"
+          >
             <h3 className="text-2xl font-bold text-white">Linkcookie</h3>
             <p className="text-zinc-400 text-base">
               Handcrafted soft cookies made with premium ingredients to sweeten your day.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="md:mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="md:mx-auto"
+          >
             <h4 className="font-semibold uppercase tracking-wider text-zinc-300">Quick Links</h4>
             <ul role="list" className="mt-4 space-y-2">
               {navigation.map((item) => (
@@ -41,9 +56,15 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="md:mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="md:mx-auto"
+          >
             <h4 className="font-semibold uppercase tracking-wider text-zinc-300">Follow Us</h4>
             <div className="flex space-x-6 mt-4">
               {social.map((item) => (
@@ -53,7 +74,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="mt-12 border-t border-zinc-800 pt-8 text-center">

@@ -1,5 +1,4 @@
-// src/hooks/useMediaQuery.ts
-"use client"; // This hook uses client-side APIs
+"use client";
 
 import { useState, useEffect } from 'react';
 

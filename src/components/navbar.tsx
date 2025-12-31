@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Navbar() {
     };
     const dateFormatter = new Intl.DateTimeFormat('en-GB', dateFormatOptions);
     const todaysDateInJakarta = dateFormatter.format(now);
-    
+
     setClientFormattedDate(todaysDateInJakarta);
 
   }, []);
@@ -43,7 +44,10 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 h-[75px] bg-zinc-50 font-sans shadow-lg"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
@@ -69,7 +73,7 @@ export default function Navbar() {
           </div>
 
           <div className="md:hidden flex items-center">
-             <button
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
@@ -85,28 +89,34 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      {isMobileMenuOpen && (
-        <div
-          data-cursor-trail-ignore="true"
-          className="md:hidden fixed top-[75px] left-0 right-0 z-40 bg-[#fbfbfb] shadow-lg pt-4 pb-8"
-        >
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col items-start gap-4">
-              <Link href="/" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-              <Link href="/products" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesan</Link>
-              {/* <Link href="/voucher" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Voucher</Link> */}
-              {/* <Link href="/history" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesanan</Link> */}
-              {/* <Link href="/profile" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link> */}
-              <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-200 w-full">
-                <span className="text-xl text-[#494d51] leading-none">♦</span>
-                <span className="text-sm text-[#494d51]">{clientFormattedDate}</span>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            data-cursor-trail-ignore="true"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed top-[75px] left-0 right-0 z-40 bg-[#fbfbfb] shadow-lg pt-4 pb-8 overflow-hidden"
+          >
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col items-start gap-4">
+                <Link href="/" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                <Link href="/products" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesan</Link>
+                {/* <Link href="/voucher" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Voucher</Link> */}
+                {/* <Link href="/history" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Pesanan</Link> */}
+                {/* <Link href="/profile" className="no-underline text-[#494d51] text-lg w-full py-2 hover:bg-gray-100 rounded" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link> */}
+                <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-200 w-full">
+                  <span className="text-xl text-[#494d51] leading-none">♦</span>
+                  <span className="text-sm text-[#494d51]">{clientFormattedDate}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
