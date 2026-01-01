@@ -52,20 +52,7 @@ export default function ProductDetailPage() {
 
     const quantity = cart[detailProduct.id] || 0;
 
-    // const [cart, setCart] = useState<Record<number, number>>();
 
-    // useEffect(() => {
-    //     const savedCart = localStorage.getItem("linkcookie-cart");
-    //     if (savedCart) {
-    //         setCart(JSON.parse(savedCart));
-    //     }
-    // }, [])
-
-    // useEffect(() => {
-    //     if (Object.keys())
-    // })
-
-    // const quantity = cart[detailProduct.id] || 0;
 
     return (
         <section className="bg-white mt-16 md:mt-8 overflow-hidden">
