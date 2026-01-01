@@ -137,10 +137,8 @@ export default function ProductGrid({ products }: ProductGridProps) {
           >
             <div className="container mx-auto">
               <div className="container mx-auto">
-                <Link href="/cart" className="block">
-                  <button className="w-full bg-pink-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-600 transition-colors text-lg">
-                    Masukkan {totalItems} item ke Keranjang
-                  </button>
+                <Link href="/cart" className="block w-full bg-pink-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-600 transition-colors text-lg text-center">
+                  Masukkan {totalItems} item ke Keranjang
                 </Link>
               </div>
             </div>
