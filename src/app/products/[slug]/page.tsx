@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useCart } from "@/contexts/cartContext";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 // export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
 //     const { slug } = use(params);
@@ -23,11 +24,11 @@ export default function ProductDetailPage() {
                 if (!slug) return;
 
                 const { data: product, error } = await supabase
-                .from('products')
-                .select<'*', Product>('*')
-                .eq('slug', slug)
-                .single()
-                if(error || !product) {
+                    .from('products')
+                    .select<'*', Product>('*')
+                    .eq('slug', slug)
+                    .single()
+                if (error || !product) {
                     notFound();
                 } else {
                     setDetailProduct(product);
@@ -41,11 +42,11 @@ export default function ProductDetailPage() {
 
     const { cart, handleQuantityChange, totalItems } = useCart();
 
-    if(loading){
+    if (loading) {
         return <p className="mt-16">Loading gan...</p>
     }
-    
-    if(!detailProduct){
+
+    if (!detailProduct) {
         return notFound();
     }
 
@@ -66,21 +67,32 @@ export default function ProductDetailPage() {
 
     // const quantity = cart[detailProduct.id] || 0;
 
-    return(
-        <section className="bg-white mt-16 md:mt-8">
+    return (
+        <section className="bg-white mt-16 md:mt-8 overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-16">
-                    
-                    <div className="relative aspect-[5/4]">
+
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="relative aspect-[5/4]"
+                    >
                         <Image
                             src={detailProduct.image_url}
                             alt={detailProduct.name}
                             fill
                             className="w-full h-full object-contain rounded-lg shadow-sm rounded-xl"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                         />
-                    </div>
+                    </motion.div>
 
-                    <div className="mt-8 md:mt-0">
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="mt-8 md:mt-0"
+                    >
                         <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
                             {detailProduct.name}
                         </h1>
@@ -93,33 +105,42 @@ export default function ProductDetailPage() {
 
                         <div className="mt-8">
                             <div className="flex items-center gap-2">
-                                <button 
-                                  onClick={() => handleQuantityChange(detailProduct.id, -1)} 
-                                  disabled={quantity === 0}
-                                  className="w-12 h-12 rounded-md bg-zinc-200 text-lg font-bold disabled:opacity-50"
-                                >-</button>
-                                <span className="w-12 text-center font-bold text-xl">{quantity}</span>
-                                <button 
-                                  onClick={() => handleQuantityChange(detailProduct.id, 1)} 
-                                  className="w-12 h-12 rounded-md bg-zinc-800 text-white text-lg font-bold"
-                                >+</button>
+                                <motion.button
+                                    whileTap={{ scale: 0.9 }}
+                                    onClick={() => handleQuantityChange(detailProduct.id, -1)}
+                                    disabled={quantity === 0}
+                                    className="w-12 h-12 rounded-md bg-zinc-200 text-lg font-bold disabled:opacity-50 flex items-center justify-center"
+                                >-</motion.button>
+                                <span className="w-12 text-center font-bold text-xl flex items-center justify-center">{quantity}</span>
+                                <motion.button
+                                    whileTap={{ scale: 0.9 }}
+                                    onClick={() => handleQuantityChange(detailProduct.id, 1)}
+                                    className="w-12 h-12 rounded-md bg-zinc-800 text-white text-lg font-bold flex items-center justify-center"
+                                >+</motion.button>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>
-            {totalItems > 0 && (
-                <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-                    <div className="container mx-auto">
-                        <Link href="/cart" className="block">
-                            <button className="w-full bg-pink-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-600 transition-colors text-lg">
-                                Masukkan {totalItems} item ke Keranjang
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-            )}
+            <AnimatePresence>
+                {totalItems > 0 && (
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 100, opacity: 0 }}
+                        className="fixed bottom-0 left-0 right-0 z-50 p-4"
+                    >
+                        <div className="container mx-auto">
+                            <Link href="/cart" className="block">
+                                <button className="w-full bg-pink-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-600 transition-colors text-lg">
+                                    Masukkan {totalItems} item ke Keranjang
+                                </button>
+                            </Link>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     )
 }

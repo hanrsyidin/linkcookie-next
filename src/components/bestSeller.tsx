@@ -90,6 +90,7 @@ export default function BestSellers() {
                       alt={currentProduct.title}
                       fill
                       className="object-contain rounded-lg shadow-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </div>
@@ -128,6 +129,7 @@ export default function BestSellers() {
                       alt={currentProduct.title}
                       fill
                       className="object-contain rounded-lg shadow-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </motion.div>
                 </div>
@@ -158,6 +160,7 @@ export default function BestSellers() {
                     alt={ingredient.name}
                     fill
                     className="object-cover"
+                    sizes="112px"
                   />
                 </div>
                 <p className="font-semibold text-zinc-700">{ingredient.name}</p>

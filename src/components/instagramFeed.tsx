@@ -96,6 +96,7 @@ export default function InstagramFeed() {
                     alt={post.alt}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 640px) 240px, 288px"
                   />
                 </div>
               </motion.div>

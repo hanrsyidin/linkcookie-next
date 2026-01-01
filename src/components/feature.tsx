@@ -71,6 +71,7 @@ export default function Features() {
                     alt="Tumpukan Soft Cookies Linkcookie"
                     fill
                     className="rounded-lg shadow-lg object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
               </div>
@@ -122,7 +123,6 @@ export default function Features() {
                 alt="Tumpukan Soft Cookies Linkcookie"
                 fill
                 className="rounded-lg shadow-lg object-cover"
-                sizes="(max-width: 768px) 100vw, 45vw"
               />
             </div>
           </motion.div>
